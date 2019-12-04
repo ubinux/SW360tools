@@ -1,6 +1,6 @@
 # SW360tools
 
-The tools for importing SPDX into SW360tools and exporting information from SW360tools.
+The tools for importing SPDX into SW360tools and exporting information from SW360tools. The SW360tool is deployed in the same server as SW360.
 
 ## Using SW360tools
 
@@ -11,28 +11,27 @@ For using the SW360tools, please see the following basic workflows:
  
 Basic workflows for importing component, release and license by SPDX file:
 
-    In SW360tools, open the Import screen as follows:
+    1. In SW360tools, open the Import screen by the following link:
 	http://<host_ip>:8080/import
-	![Import screen](images/import_1.JPG)
 
-	Click on "Choose Files" button and select 1 or many files.
+	2. Click on "Choose Files" button and select 1 or many files.
 
-	Click on "Upload SPDX FILE" button.
+	3. Click on "Upload SPDX FILE" button.
 
-	System dislays message.
+	4. System dislays status message.
 
 Basic workflow for exporting component, release and license via SPDXlite file
 
-	In SW360tools, open the Export screen as follows:
+	1. In SW360tools, open the Export screen by the following link:
 	http://<host_ip>:8080/import/export
 
-	Select the field on the left hand side panel that you want to export and click ">" button. ">>" button will move all fields on the left panel to the right panel. All available fields will be exported.
+	2. Select the field on the left hand side panel that you want to export and click ">" button. ">>" button will move all fields on the left panel to the right panel. All available fields will be exported.
 	
-	Select the field on the right hand side panel that you do not want to export and click "<" button. "<<" button will move all fields on the right panel to the left panel. No field will be exported.
+	3. Select the field on the right hand side panel that you do not want to export and click "<" button. "<<" button will move all fields on the right panel to the left panel. No field will be exported.
 
-	Click "Export SPDX lite" button. System will download SPDX lite file. Now, you can view the exported SPDX lite report:
+	4. Click "Export SPDX lite" button. System will download SPDX lite file. Now, you can view the exported SPDX lite report.
 
-	If there is no release on component, the export might export an empty Excel file. The reason is that SPDX data is stored on release and if there is no release, system has nothing to export.
+	5. If there is no release on component, the export might export an empty Excel file. The reason is that SPDX data is stored on release and if there is no release, system has nothing to export.
 
 	
 ## Deploying SW360tools
@@ -54,14 +53,10 @@ In order to install SW360tools, you can do as the following steps:
 	3.	Build project
 		-	In folder source code \sourcecode\import, run command:
 		$mvn clean
-
 		$mvn install –Pdeploy
 
-		-	"Import.war" is generated after "mvn install –Pdeploy"
+		-	"Import.war" is generated afterward
 		-	Copy file /home/sw360/oss-management/target/import.war to /home/sw360/liferay-portal-6.2-ce-ga5/deploy/
  	
 	4. Start application SW360 and Import/Export Application:
 		$/home/sw360/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/bin/catalina.sh start
-
- 
-
