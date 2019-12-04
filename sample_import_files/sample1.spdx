@@ -1,0 +1,72 @@
+SPDXVersion: SPDX-2.1
+DataLicense: CC0-1.0
+
+##-------------------------
+## Document Information
+##-------------------------
+
+DocumentNamespace: http://5c08e7483cb0/repo/SPDX2TV_busybox-inittab-1.30.1-r0-patched.tar.gz_1570330541.spdx
+DocumentName: /srv/fossology/repository/report
+SPDXID: SPDXRef-DOCUMENT
+
+##-------------------------
+## Creation Information
+##-------------------------
+
+Creator: fossology-rest.bbclass in meta-spdxscanner
+Creator: Phuong
+CreatorComment: <text>
+This document was created using license information and a generator from Fossology.
+</text>
+Created: 2019-10-06T02:55:41Z
+LicenseListVersion: 2.6
+
+##-------------------------
+## Package Information
+##-------------------------
+
+
+PackageName: FVL_test_1
+PackageVersion: 1.30.1
+PackageFileName: busybox-inittab-1.30.1-r0-patched.tar.gz
+SPDXID: SPDXRef-upload396
+PackageDownloadLocation: file://inittab
+PackageHomePage: 
+PackageSummary: <text>inittab configuration for BusyBox</text>
+PackageVerificationCode: da39a3ee5e6b4b0d3255bfef95601890afd80709
+PackageDescription: <text>busybox-inittab version 1.30.1</text>
+PackageChecksum: SHA1: b44f2b8c52da9ef733076756572e13f95626927f
+PackageChecksum: MD5: 904da33eba3fff4bc31f9e15fb4fef5b
+PackageLicenseConcluded: NOASSERTION
+PackageLicenseDeclared: NOASSERTION
+PackageLicenseComments: <text> licenseInfoInFile determined by Scanners:
+ - nomos ("3.6.0-26-ge56f51b6f".e56f51)
+ - monk ("3.6.0-26-ge56f51b6f".e56f51) </text>
+PackageLicenseInfoFromFiles: NOASSERTION
+PackageCopyrightText: NOASSERTION
+PackageComment: <text>
+ modification record: false
+ compile options: CONFIG_ABC=no
+ LABEL_A: vulue1
+ LABEL_B: vulue2
+ LABEL_C: vulue3
+</text>
+
+
+##-------------------------
+## License Information
+##-------------------------
+
+LicenseID: Phuong_license_1
+LicenseName: Phuong_license_1
+ExtractedText: <text> Not find any license in the scanned file 1</text>
+
+
+LicenseID: Phuong_license_2
+LicenseName: Phuong_license_2
+ExtractedText: <text> Not find any license in the scanned file 2</text>
+
+
+LicenseID: Phuong_license_3
+LicenseName: Phuong_license_3
+ExtractedText: <text> Not find any license in the scanned file 3</text>
