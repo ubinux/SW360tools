@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.api;
 
 import com.spdx.model.ApiResult;
@@ -17,7 +21,6 @@ public interface ApiInterface {
 	ApiResult getListComponent(ResponseToken token) throws Exception;
 	SpdxComponent getComponent(String urlRequest, ResponseToken token) throws Exception;
 	SpdxLicense getLicense(String urlRequest, ResponseToken token) throws Exception;
-	ApiResult getComponentById(String componentId, ResponseToken token) throws Exception;
 	ApiResult deleteRelease(String request, ResponseToken token) throws Exception;
 	ApiResult getReleaseByNameAndVersion(String componentId, String name, String version, ResponseToken token) throws Exception;
 	ApiResult getReleaseByComponent(String apiComponent, ResponseToken token) throws Exception;

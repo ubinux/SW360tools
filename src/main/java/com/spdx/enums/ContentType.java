@@ -1,7 +1,13 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.enums;
 
 public enum ContentType {
-	JSON("application/json"), FORM_URLENCODED("application/x-www-form-urlencoded"), NOTSET("");
+	JSON("application/json"),
+	FORM_URLENCODED("application/x-www-form-urlencoded"),
+	NOTSET("");
 	
 	private final String value;
 

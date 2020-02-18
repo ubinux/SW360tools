@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.utils;
 
 import java.io.InputStream;
@@ -17,7 +21,6 @@ public class FieldConfig {
 	
 	final static Logger logger = Logger.getLogger(FieldConfig.class);
 
-	
 	public static String getFieldsByHeader(String field, SpdxRelease release, List<String> lstSpdxFields) {
 		if(ExcelFieldEnums.from(field.trim()) == ExcelFieldEnums.PackageName)
 			return release.getName();

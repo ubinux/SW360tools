@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.controller;
 
 import java.io.BufferedInputStream;
@@ -5,10 +9,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +22,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +29,9 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spdx.model.OutputModel;
 import com.spdx.model.SpdxExcel;
 import com.spdx.service.ExportExcelFileImpl;
@@ -102,37 +101,6 @@ public class ImportFileController {
 			e.printStackTrace();
 		}
 		return "home";
-	}
-	
-	@RequestMapping(value = "/upload-api", method = RequestMethod.POST, headers = "Content-Type=multipart/form-data", produces = "application/json")		
-	public  @ResponseBody String uploadMultipartFileApi(@RequestParam MultipartFile[] files, Model model) throws Exception {		
-		ObjectMapper mapper = new ObjectMapper();		
-		HttpHeaders responseHeaders = new HttpHeaders();		
-		responseHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));		
-		List<String> fileNames = null;		
-		List<OutputModel> outputs = new ArrayList<OutputModel>();		
-		try {		
-			fileNames = Arrays.asList(files).stream().map(file -> {		
-				try {		
-					fileStorage.store(file);		
-				} catch (IOException e) {		
-					logger.error(e);	
-					e.printStackTrace();		
-				}		
-				return file.getOriginalFilename();		
-			}).collect(Collectors.toList());		
-			if(fileNames.size()==0 || fileNames == null) {		
-				model.addAttribute("messages", "No file upload");		
-			} else {		
-				for (String item : fileNames) {		
-					outputs.add(fileStorage.readContentFile(item));		
-				}		
-				model.addAttribute("response", outputs);		
-			}		
-		} catch (Exception e) {		
-			logger.error(e);	
-		}		
-		return mapper.writeValueAsString(outputs);		
 	}
 	
 	@RequestMapping(value = "/download", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)

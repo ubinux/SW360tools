@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.api;
 
 import java.io.IOException;
@@ -107,12 +111,6 @@ public class CalloutApi implements ApiInterface {
 		return prop.getProperty("host.sw360") + prop.getProperty(request);
 	}
 	
-	@Override
-	public ApiResult getComponentById(String componentId, ResponseToken token) throws Exception {
-		url = initRequest("request.import.component", token) + "/"+componentId;
-		return httpClient.getRequest(url);
-	}
-
 	@Override
 	public SpdxLicense getLicense(String urlRequest, ResponseToken token) throws Exception {
 		SpdxLicense license = new SpdxLicense();

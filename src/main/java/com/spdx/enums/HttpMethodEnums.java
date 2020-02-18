@@ -1,7 +1,14 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.enums;
 
 public enum HttpMethodEnums {
-	POST("POST"), GET("GET"), PATCH("PATCH"), DELETE("DELETE");
+	POST("POST"),
+	GET("GET"),
+	PATCH("PATCH"),
+	DELETE("DELETE");
 	
 	private final String value;
 

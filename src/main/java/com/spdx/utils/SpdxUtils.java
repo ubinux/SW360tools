@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.utils;
 
 import java.io.File;
@@ -204,7 +208,6 @@ public class SpdxUtils {
 			}
 		}
 		scanner.close();
-		
 		
 		if (isStart && startLineNumberOfPackageComment < endLineNumberOfPackageComment) {
 			// Get content package comment

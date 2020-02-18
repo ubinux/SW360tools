@@ -1,8 +1,16 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.enums;
 
 public enum HeaderEnums {
-	DocumentInformation("## Document Information"), CreationInformation("## Creation Information"), PackageInformation("## Package Information"),
-	FileInformation("## File Information"), File("##File"), LicenseInformation("## License Information");
+	DocumentInformation("## Document Information"),
+	CreationInformation("## Creation Information"),
+	PackageInformation("## Package Information"),
+	FileInformation("## File Information"),
+	File("##File"),
+	LicenseInformation("## License Information");
 	
 	private final String value;
 

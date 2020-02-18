@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.utils;
 
 import java.io.BufferedReader;
@@ -43,7 +47,6 @@ public class HttpClientUtils implements Closeable {
 		this.token = token;
 		this.basicAuthen = basicAuthen;
 	}
-
 
 	public ApiResult postRequest(String urlRequest, String requestBody, ContentType contentType) throws IOException {
 		url = new URL(urlRequest);

@@ -1,3 +1,7 @@
+/*------------------------------------------------------------------------*/
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+/*------------------------------------------------------------------------*/
+
 package com.spdx.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,5 +18,5 @@ public class SpdxComponent {
 	private String name;
 	private String homepage;
 	private String packageLicenseConcluded;
-		
+	private int componentType = 1;
 }
