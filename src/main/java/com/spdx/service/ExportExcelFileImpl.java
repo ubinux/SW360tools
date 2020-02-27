@@ -4,9 +4,12 @@
 
 package com.spdx.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -264,6 +267,13 @@ public class ExportExcelFileImpl {
 		Properties prop = new Properties();
 		prop.load(input);
 		String downloadPath = prop.getProperty("download.path");
+		File drictory = new File(downloadPath);
+                if (!drictory.exists())
+                        Files.createDirectory(Paths.get(downloadPath));
+                else if (drictory.exists() && !drictory.isDirectory()) {
+                        drictory.delete();
+                        Files.createDirectory(Paths.get(downloadPath));
+                }
 
 		String pathFile = downloadPath + "SPDX-lite-"+ date + ".xlsx";
 		FileOutputStream fileOut = new FileOutputStream(pathFile);

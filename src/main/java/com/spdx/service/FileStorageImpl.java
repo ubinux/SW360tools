@@ -40,7 +40,7 @@ import com.spdx.utils.SpdxUtils;
 public class FileStorageImpl implements FileStoreService {
 
 	private String rootPathFile;
-	private final Path rootLocation = Paths.get(rootPathFile);
+	private final Path rootLocation;
 	private ObjectMapper mapper = new ObjectMapper();
 	private SpdxUtils utils = new SpdxUtils();
 
@@ -53,6 +53,7 @@ public class FileStorageImpl implements FileStoreService {
 		try {
 			prop.load(input);
 			rootPathFile = prop.getProperty("upload.path");
+			rootLocation = Paths.get(rootPathFile);
 		} catch (IOException e) {
 			logger.error(e);
 			throw new RuntimeException("FAIL! -> message = " + e.getMessage());
