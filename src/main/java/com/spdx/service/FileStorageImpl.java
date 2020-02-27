@@ -14,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -38,7 +39,7 @@ import com.spdx.utils.SpdxUtils;
 @Service
 public class FileStorageImpl implements FileStoreService {
 
-	private final String rootPathFile = "D:\\file\\";
+	private String rootPathFile;
 	private final Path rootLocation = Paths.get(rootPathFile);
 	private ObjectMapper mapper = new ObjectMapper();
 	private SpdxUtils utils = new SpdxUtils();
@@ -46,6 +47,17 @@ public class FileStorageImpl implements FileStoreService {
 	private static ApiInterface callout = new CalloutApi();
 	final static Logger logger = Logger.getLogger(FileStorageImpl.class);
 
+	public FileStorageImpl() {
+		InputStream input = FileStorageImpl.class.getClassLoader().getResourceAsStream("application.properties");
+		Properties prop = new Properties();
+		try {
+			prop.load(input);
+			rootPathFile = prop.getProperty("upload.path");
+		} catch (IOException e) {
+			logger.error(e);
+			throw new RuntimeException("FAIL! -> message = " + e.getMessage());
+		}
+	}
 	@Override
 	public void store(MultipartFile file) throws IOException {
 		InputStream stream = file.getInputStream();

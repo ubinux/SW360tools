@@ -5,6 +5,7 @@
 package com.spdx.service;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -258,7 +259,13 @@ public class ExportExcelFileImpl {
 		
 		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String date = format.format(new Date()).replace("-", "").replace(" ", "").replace(":", "");
-		String pathFile = "D:\\"+ "SPDX-lite-"+ date + ".xlsx";
+
+		InputStream input = ExportExcelFileImpl.class.getClassLoader().getResourceAsStream("application.properties");
+		Properties prop = new Properties();
+		prop.load(input);
+		String downloadPath = prop.getProperty("download.path");
+
+		String pathFile = downloadPath + "SPDX-lite-"+ date + ".xlsx";
 		FileOutputStream fileOut = new FileOutputStream(pathFile);
 		workbook.write(fileOut);
 		fileOut.close();
