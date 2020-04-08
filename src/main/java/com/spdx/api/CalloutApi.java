@@ -88,6 +88,12 @@ public class CalloutApi implements ApiInterface {
 	}
 	
 	@Override
+	public ApiResult getReleases(ResponseToken token) throws Exception {
+		url = initRequest("request.import.release", token);
+		return httpClient.getRequest(url);
+	}
+
+	@Override
 	public SpdxComponent getComponent(String urlRequest, ResponseToken token) throws Exception {
 		SpdxComponent component = new SpdxComponent();
 		httpClient = new HttpClientUtils(token.getToken_type(), token.getAccess_token(), false);

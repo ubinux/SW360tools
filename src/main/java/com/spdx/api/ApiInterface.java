@@ -19,6 +19,7 @@ public interface ApiInterface {
 	ApiResult getListLicense(ResponseToken token) throws Exception;
 	ApiResult getComponentIdByName(String componentName, ResponseToken token) throws Exception;
 	ApiResult getListComponent(ResponseToken token) throws Exception;
+	ApiResult getReleases(ResponseToken token) throws Exception;
 	SpdxComponent getComponent(String urlRequest, ResponseToken token) throws Exception;
 	SpdxLicense getLicense(String urlRequest, ResponseToken token) throws Exception;
 	ApiResult deleteRelease(String request, ResponseToken token) throws Exception;

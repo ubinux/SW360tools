@@ -15,6 +15,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import com.spdx.enums.ExcelFieldEnums;
+import com.spdx.model.PackageCommentExtend;
 import com.spdx.model.SpdxRelease;
 
 public class FieldConfig {
@@ -68,8 +69,14 @@ public class FieldConfig {
 			return release.getCompileOptions();
 		
 		// Check exist package comment extend
-		if(lstSpdxFields.contains(field) && release.getPackageCommentExtends() != null) {
-			return release.getPackageCommentExtends().get(field);
+		List<PackageCommentExtend> packageCommentExtends = release.getPackageCommentExtends();
+		if(packageCommentExtends != null && packageCommentExtends.size() > 0) {
+			for (PackageCommentExtend packageCommentExtend : packageCommentExtends) {
+				if (packageCommentExtend.getKey().equals(field)) {
+					return packageCommentExtend.getValue();
+				}
+			}
+			//	return release.getPackageCommentExtends().get(field);
 		}
 		return null;
 	}

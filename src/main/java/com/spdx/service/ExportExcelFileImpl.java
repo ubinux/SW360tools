@@ -6,7 +6,6 @@ package com.spdx.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,7 +17,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -42,6 +40,7 @@ import com.spdx.api.ApiInterface;
 import com.spdx.api.CalloutApi;
 import com.spdx.enums.ExcelFieldEnums;
 import com.spdx.model.ApiResult;
+import com.spdx.model.PackageCommentExtend;
 import com.spdx.model.ResponseToken;
 import com.spdx.model.SpdxExcel;
 import com.spdx.model.SpdxLicense;
@@ -96,10 +95,15 @@ public class ExportExcelFileImpl {
 		// Package comment extends header
 		Set<String> packageCommentExtendsHeader = new HashSet<String>();
 		for (SpdxRelease spdxRelease : lstRelease) {
-			Map<String, String> packageCommentExtends = spdxRelease.getPackageCommentExtends();
+			List<PackageCommentExtend> packageCommentExtends = spdxRelease.getPackageCommentExtends();
+//			Map<String, String> packageCommentExtends = spdxRelease.getPackageCommentExtends();
 			if (packageCommentExtends != null) {
-				for (Map.Entry<String,String> entry : packageCommentExtends.entrySet()) {
-					packageCommentExtendsHeader.add(entry.getKey());
+//				for (Map.Entry<String,String> entry : packageCommentExtends.entrySet()) {
+//					packageCommentExtendsHeader.add(entry.getKey());
+//				}
+
+				for (PackageCommentExtend packageCommentExtend : packageCommentExtends) {
+					packageCommentExtendsHeader.add(packageCommentExtend.getKey());
 				}
 			}
 		}

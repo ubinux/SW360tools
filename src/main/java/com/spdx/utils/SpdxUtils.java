@@ -7,20 +7,20 @@ package com.spdx.utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
 
 import com.spdx.enums.HeaderEnums;
 import com.spdx.enums.SpdxFieldEnums;
 import com.spdx.model.HeaderFileNumber;
+import com.spdx.model.PackageCommentExtend;
 import com.spdx.model.SpdxComponent;
 import com.spdx.model.SpdxLicense;
 import com.spdx.model.SpdxRelease;
@@ -212,17 +212,25 @@ public class SpdxUtils {
 		if (isStart && startLineNumberOfPackageComment < endLineNumberOfPackageComment) {
 			// Get content package comment
 			String modificationRecordTmp = (String) FileUtils.readLines(file).get(startLineNumberOfPackageComment);
-			dto.setModificationRecord(modificationRecordTmp.split(":")[1].trim());
+			// Check exits modificationRecord
+			if (!Strings.isEmpty(modificationRecordTmp) && modificationRecordTmp.split(":").length == 2) {
+				dto.setModificationRecord(modificationRecordTmp.split(":")[1].trim());
+			}
 			
 			String complieOptionsTmp = (String) FileUtils.readLines(file).get(startLineNumberOfPackageComment + 1);
-			dto.setCompileOptions(complieOptionsTmp.split(":")[1].trim());
+			// Check exits complieOptions
+			if (!Strings.isEmpty(complieOptionsTmp) && complieOptionsTmp.split(":").length == 2) {
+				dto.setCompileOptions(complieOptionsTmp.split(":")[1].trim());
+			}
 			
-			Map<String, String> packageCommentExtends = new HashMap<String, String>();
+			List<PackageCommentExtend> packageCommentExtends = new ArrayList<PackageCommentExtend>();
 			for (int i = startLineNumberOfPackageComment + 2; i < endLineNumberOfPackageComment - 1; i++) {
 				
 				String packageCommentExtendTmp = (String) FileUtils.readLines(file).get(i);
-				String[] packageCommentExtend = packageCommentExtendTmp.split(":");
-				packageCommentExtends.put(packageCommentExtend[0].trim(), packageCommentExtend[1].trim());
+				String[] packageCommentExtendArr = packageCommentExtendTmp.split(":");
+				
+				PackageCommentExtend packageCommentExtendOb = new PackageCommentExtend(packageCommentExtendArr[0].trim(), packageCommentExtendArr[1].trim());
+				packageCommentExtends.add(packageCommentExtendOb);
 			}
 			
 			dto.setPackageCommentExtends(packageCommentExtends);

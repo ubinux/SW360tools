@@ -4,7 +4,7 @@
 
 package com.spdx.model;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,7 +39,7 @@ public class SpdxRelease {
 	private Set<String> licenseIds;
 	private String modificationRecord;
 	private String compileOptions;
-	private Map<String, String> packageCommentExtends;
+	private List<PackageCommentExtend> packageCommentExtends;
 	
 	private String dataLicense;
 	private String spdxId;
