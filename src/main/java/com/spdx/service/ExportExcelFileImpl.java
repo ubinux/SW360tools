@@ -255,9 +255,12 @@ public class ExportExcelFileImpl {
 						break;
 					}
 					
-					sheet.autoSizeColumn(j);
+					
 				}
 			}
+		}
+		for (int i = 0; i < lstSpdxFields.size(); i++) {
+			sheet.autoSizeColumn(i);
 		}
 		
 		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
