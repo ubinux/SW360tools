@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import com.google.gson.Gson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spdx.enums.ContentType;
 import com.spdx.model.ApiResult;
@@ -150,9 +151,10 @@ public class CalloutApi implements ApiInterface {
 		SpdxRelease release = new SpdxRelease();
 		httpClient = new HttpClientUtils(token.getToken_type(), token.getAccess_token(), false);
 		ApiResult result = httpClient.getRequest(urlRequest);
-		if(result.getResponseCode() == 200 || result.getResponseCode() == 201)
-			release =  mapper.readValue(result.getBody(), SpdxRelease.class);
+		if(result.getResponseCode() == 200 || result.getResponseCode() == 201) {
+			Gson gson = new Gson();
+			release = gson.fromJson(result.getBody(), SpdxRelease.class);
+		}
 		return release;
 	}
-
 }

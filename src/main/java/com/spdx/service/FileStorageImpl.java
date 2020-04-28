@@ -131,18 +131,20 @@ public class FileStorageImpl implements FileStoreService {
 			}
 			
 			release.setLicenseIds(licenseIds);
-			
-			// Post component
-			ResponseApiComponent componentResponse = postComponentApi(component, fileName, messages, token);
-			
-			// Post release
-			postReleaseApi(release, fileName, messages, componentResponse, token);
-			
-			// Post license
-			postLicenseApi(fileName, messages, componentResponse, token, lstLicense);
-			
-			if (file.exists())
-				file.delete();
+
+			if(release.getPackageVersion() != null) {
+				// Post component
+		                ResponseApiComponent componentResponse = postComponentApi(component, fileName, messages, token);
+				// Post release
+				postReleaseApi(release, fileName, messages, componentResponse, token);
+				// Post license
+				postLicenseApi(fileName, messages, componentResponse, token, lstLicense);
+				if (file.exists())
+					file.delete();
+			}else {
+				messages.add("PackageVersion field is not available, stop importing file");
+				return new OutputModel(fileName, messages);
+			}
 		}
 		return new OutputModel(fileName, messages);
 	}

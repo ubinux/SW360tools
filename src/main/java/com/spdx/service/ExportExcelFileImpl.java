@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
@@ -93,7 +94,7 @@ public class ExportExcelFileImpl {
 		List<SpdxRelease> lstRelease = lstLicenses.size() == 0 ? new ArrayList<SpdxRelease>() : getListRelease(token);
 		
 		// Package comment extends header
-		Set<String> packageCommentExtendsHeader = new HashSet<String>();
+		Set<String> packageCommentExtendsHeader = new LinkedHashSet<String>();
 		for (SpdxRelease spdxRelease : lstRelease) {
 			List<PackageCommentExtend> packageCommentExtends = spdxRelease.getPackageCommentExtends();
 //			Map<String, String> packageCommentExtends = spdxRelease.getPackageCommentExtends();
@@ -258,12 +259,13 @@ public class ExportExcelFileImpl {
 						cellData.setCellValue(FieldConfig.getFieldsByHeader(lstSpdxFields.get(j), release, lstSpdxFields));
 						break;
 					}
-					
-					sheet.autoSizeColumn(j);
 				}
 			}
 		}
-		
+		for (int i = 0; i < lstSpdxFields.size(); i++) {
+			sheet.autoSizeColumn(i);
+		}
+
 		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String date = format.format(new Date()).replace("-", "").replace(" ", "").replace(":", "");
 
