@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -125,7 +126,7 @@ public class FileStorageImpl implements FileStoreService {
 			utils.importComponentAddReLease(rootPathFile + fileName, component, release);
 			
 			// Set licenseIds for component
-			Set<String> licenseIds = new HashSet<String>();
+			List<String> licenseIds = new LinkedList<String>();
 			for (SpdxLicense license : lstLicense) {
 				licenseIds.add(license.getShortName()); 
 			}
