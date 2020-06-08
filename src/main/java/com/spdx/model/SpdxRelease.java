@@ -36,7 +36,7 @@ public class SpdxRelease {
 	private String filesAnalyzed;
 	private String packageLicenseComments;
 	
-	private Set<String> licenseIds;
+	private List<String> licenseIds;
 	private String modificationRecord;
 	private String compileOptions;
 	private List<PackageCommentExtend> packageCommentExtends;
