@@ -1,10 +1,11 @@
 /*------------------------------------------------------------------------*/
-// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2019
+// All Rights Reserved, Copyright(C) FUJITSU LIMITED 2020
 /*------------------------------------------------------------------------*/
 
 package com.spdx.service;
 
 import java.io.File;
+
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -13,11 +14,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -34,6 +37,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -97,12 +101,7 @@ public class ExportExcelFileImpl {
 		Set<String> packageCommentExtendsHeader = new LinkedHashSet<String>();
 		for (SpdxRelease spdxRelease : lstRelease) {
 			List<PackageCommentExtend> packageCommentExtends = spdxRelease.getPackageCommentExtends();
-//			Map<String, String> packageCommentExtends = spdxRelease.getPackageCommentExtends();
 			if (packageCommentExtends != null) {
-//				for (Map.Entry<String,String> entry : packageCommentExtends.entrySet()) {
-//					packageCommentExtendsHeader.add(entry.getKey());
-//				}
-
 				for (PackageCommentExtend packageCommentExtend : packageCommentExtends) {
 					packageCommentExtendsHeader.add(packageCommentExtend.getKey());
 				}
@@ -265,7 +264,6 @@ public class ExportExcelFileImpl {
 		for (int i = 0; i < lstSpdxFields.size(); i++) {
 			sheet.autoSizeColumn(i);
 		}
-
 		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String date = format.format(new Date()).replace("-", "").replace(" ", "").replace(":", "");
 
@@ -296,10 +294,35 @@ public class ExportExcelFileImpl {
 		if ((result.getResponseCode() == 200 || result.getResponseCode() == 201) && result.getBody().contains("sw360:components")) {
 			lstComponent = (new JSONObject(result.getBody())).getJSONObject("_embedded")
 					.getJSONArray("sw360:components");
-			for (Object object : lstComponent) {
+			
+			//Sort component array
+			JSONArray sortedJsonArray = new JSONArray();
+			List<JSONObject> list = new ArrayList<JSONObject>();
+			for(int i = 0; i < lstComponent.length(); i++) {
+				list.add(lstComponent.getJSONObject(i));
+			}
+			Collections.sort(list, new Comparator<JSONObject>() {
+				private static final String KEY_NAME = "name";
+				@Override
+				public int compare(JSONObject a, JSONObject b) {
+					String str1 = new String();
+					String str2 = new String();
+					try {
+						str1 = (String)a.get(KEY_NAME);
+						str2 = (String)b.get(KEY_NAME);
+					} catch(JSONException e) {
+		               e.printStackTrace();
+		            }
+		            return str1.toUpperCase().compareTo(str2.toUpperCase());
+		      }
+		    });
+		    for(int i = 0; i < lstComponent.length(); i++) {
+		    	sortedJsonArray.put(list.get(i));
+		    }
+		    for (Object object : sortedJsonArray) {
 				if (object instanceof JSONObject)
 					lstApiComponent
-							.add(((JSONObject) object).getJSONObject("_links").getJSONObject("self").getString("href"));
+					.add(((JSONObject) object).getJSONObject("_links").getJSONObject("self").getString("href"));
 			}
 		}
 		return lstApiComponent;
@@ -330,9 +353,7 @@ public class ExportExcelFileImpl {
 				lstRelease.add(callout.getRelease(apiRelease, token));
 			}
 		}
-		
 		return lstRelease;
-		
 	}
 	
 	private List<SpdxLicense> getLicenses(ResponseToken token) throws Exception {
@@ -350,7 +371,7 @@ public class ExportExcelFileImpl {
 			for (Object object : lstComponent) {
 				if (object instanceof JSONObject)
 					lstApiLicenses
-							.add(((JSONObject) object).getJSONObject("_links").getJSONObject("self").getString("href"));
+					.add(((JSONObject) object).getJSONObject("_links").getJSONObject("self").getString("href"));
 			}
 		}
 		
@@ -359,5 +380,4 @@ public class ExportExcelFileImpl {
 			lstLicenses.add(callout.getLicense(url, token));
 		return lstLicenses;
 	}
-
 }
